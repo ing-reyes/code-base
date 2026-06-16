@@ -21,7 +21,7 @@ npm run start:dev
 
 # 🔬 Actividad Práctica: Implementación de un Nuevo Módulo (Modular)
 
-¡Bienvenidos al laboratorio práctico del backend! En esta actividad pondrán a prueba su comprensión de la **arquitectura modular** y el flujo de datos utilizando **Express, Mongoose y TypeScript**.
+¡Bienvenidos a la actividad práctica del backend con MongoDB! En esta actividad pondrán a prueba su comprensión de la **arquitectura modular** y el flujo de datos utilizando **Express, Mongoose y TypeScript**.
 
 Partiendo de la estructura base que ya está configurada en este proyecto, su objetivo es diseñar e integrar por completo un nuevo módulo funcional enfocado en la gestión de inventario.
 
