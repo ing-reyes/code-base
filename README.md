@@ -139,7 +139,7 @@ Para comprobar que el laboratorio funciona correctamente, pueden utilizar herram
 
 ---
 
-## 🛑 Reglas del Laboratorio
+## 🛑 Reglas de la Actividad Práctica
 
 * **Código Limpio:** Mantener el uso correcto de TypeScript (tipado fuerte, evitar el uso innecesario de `any`).
 * **Manejo de Errores:** Asegurar el uso de bloques `try/catch` en los servicios y promesas `.catch()` en los controladores para evitar que el servidor se caiga en caso de fallas.
