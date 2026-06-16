@@ -10,7 +10,7 @@ export class AppServer {
     this.app.use(express.urlencoded({extended: true}));
 
 
-    this.app.use("/", AppRoutes.route)
+    this.app.use("/api", AppRoutes.route)
 
     this.app.listen(ENVS.PORT, () => {
       console.log(`Server running on port ${ENVS.PORT}`);
