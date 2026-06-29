@@ -1,36 +1,36 @@
 import { Request, Response } from "express";
-import { ProductsService } from "./product.service";
-import { CreateProductDto } from "./dtos/create-product.dto";
-import { UpdateProductDto } from "./dtos/update-product.dto";
+import { WarehousesService } from "./warehouse.service";
+import { CreateWarehouseDto } from "./dtos/create-warehouse.dto";
+import { UpdateWarehouseDto } from "./dtos/update-warehouse.dto";
 import { PaginationDto } from "../common/dtos/pagination/pagination.dto";
 import { HandlerError } from "../common/errors/handler.error";
 
-export class ProductsController {
+export class WarehousesController {
     constructor(
-        private readonly productsService: ProductsService
+        private readonly warehousesService: WarehousesService
     ) { }
 
     create = (req: Request, res: Response) => {
-        const [error, createProductDto] = CreateProductDto.validate(req.body);
+        const [error, createWarehouseDto] = CreateWarehouseDto.validate(req.body);
         if (error) {
             res.status(400).json({ message: error, status: 400 });
             return;
         }
 
-        this.productsService.create(createProductDto!)
-            .then((product) => res.status(201).json(product))
+        this.warehousesService.create(createWarehouseDto!)
+            .then((warehouse) => res.status(201).json(warehouse))
             .catch((error) => HandlerError.error(error, res));
     }
 
     update = (req: Request, res: Response) => {
-        const [error, updateProductDto] = UpdateProductDto.validate(req.body);
+        const [error, updateWarehouseDto] = UpdateWarehouseDto.validate(req.body);
         if (error) {
             res.status(400).json({ message: error, status: 400 });
             return;
         }
 
-        this.productsService.update(req.params.id as string, updateProductDto!)
-            .then((product) => res.status(200).json(product))
+        this.warehousesService.update(req.params.id as string, updateWarehouseDto!)
+            .then((warehouse) => res.status(200).json(warehouse))
             .catch((error) => HandlerError.error(error, res));
     }
 
@@ -40,22 +40,22 @@ export class ProductsController {
             res.status(400).json({ message: error, status: 400 });
             return;
         }
-        this.productsService.findAll(paginationDto!)
-            .then((products) => res.status(200).json(products))
+        this.warehousesService.findAll(paginationDto!)
+            .then((warehouses) => res.status(200).json(warehouses))
             .catch((error) => HandlerError.error(error, res));
     }
 
     findOne = (req: Request, res: Response) => {
 
-        this.productsService.findOne(req.params.id as string)
-            .then((product) => res.status(200).json(product))
+        this.warehousesService.findOne(req.params.id as string)
+            .then((warehouse) => res.status(200).json(warehouse))
             .catch((error) => HandlerError.error(error, res));
     }
 
     delete = (req: Request, res: Response) => {
 
-        this.productsService.delete(req.params.id as string)
-            .then((product) => res.status(200).json(product))
+        this.warehousesService.delete(req.params.id as string)
+            .then((warehouse) => res.status(200).json(warehouse))
             .catch((error) => HandlerError.error(error, res));
     }
 }

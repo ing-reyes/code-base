@@ -1,3 +1,5 @@
+import { ValidatorsConfig } from "../../common/config/validators.config";
+
 export class CreateCategoryDto {
     constructor(
         public name: string,
@@ -8,7 +10,7 @@ export class CreateCategoryDto {
         const { name, description } = data;
 
         if (!name) return ["Missing name", undefined];
-        if (description && description.length < 4) return ["Description too short", undefined];
+        if (description && !ValidatorsConfig.isLengthInRange(description, 4)) return ["Description too short", undefined];
 
         return [undefined, new CreateCategoryDto(name, description)];
     }

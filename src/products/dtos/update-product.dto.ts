@@ -6,29 +6,30 @@ export class UpdateProductDto {
         public price: number | undefined,
         public stock: number | undefined,
         public category: string | undefined,
+        public supplierId: string | undefined,
         public description: string | undefined,
     ) { }
 
     set fields(data: Partial<UpdateProductDto>) {
-        const { name, price, stock, category, description } = data;
+        const { name, price, stock, category, supplierId, description } = data;
 
         if (name) this.name = name;
         if (price) this.price = price;
         if (stock) this.stock = stock;
         if (category) this.category = category;
+        if (supplierId) this.supplierId = supplierId;
         if (description) this.description = description;
     }
 
     static validate(data: { [key: string]: any }): [string | undefined, UpdateProductDto | undefined] {
-        const { name, price, stock, category, description } = data;
+        const { name, price, stock, category, supplierId, description } = data;
 
-        if (price && isNaN(+price)) return ["Price should be a number.", undefined];
-        if (price && +price < 0) return ["Price should be positive.", undefined];
-        if (stock && isNaN(+stock)) return ["Stock should be a number.", undefined];
-        if (stock && +stock < 0) return ["Stock should be positive.", undefined];
-        if (category && ValidatorsConfig.isMongoId(category)) return ["Category not valid", undefined];
-        if (description && description.length < 4) return ["Description too short", undefined];
+        if (price !== undefined && !ValidatorsConfig.isPositive(price)) return ["Price should be a positive number.", undefined];
+        if (stock !== undefined && !ValidatorsConfig.isPositive(stock)) return ["Stock should be a positive number.", undefined];
+        if (category && !ValidatorsConfig.isMongoId(category)) return ["Category not valid", undefined];
+        if (supplierId && !ValidatorsConfig.isMongoId(supplierId)) return ["SupplierId not valid", undefined];
+        if (description && !ValidatorsConfig.isLengthInRange(description, 4)) return ["Description too short", undefined];
 
-        return [undefined, new UpdateProductDto(name, +price, +stock, category, description)];
+        return [undefined, new UpdateProductDto(name, price, stock, category, supplierId, description)];
     }
 }

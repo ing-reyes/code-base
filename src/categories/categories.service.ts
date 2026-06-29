@@ -2,12 +2,13 @@ import { Category } from "../common/databases/mongodb/models/category.model";
 import { PaginationDto } from "../common/dtos/pagination/pagination.dto";
 import { CreateCategoryDto } from "./dtos/create-category.dto";
 import { UpdateCategoryDto } from "./dtos/update-category.dto";
+import { ManagerError } from "../common/errors/manager.error";
 
 export class CategoriesService {
     async create(createCategoryDto: CreateCategoryDto) {
         try {
             const category = await Category.create(createCategoryDto);
-            if (!category) throw new Error("Failed to create category");
+            if (!category) throw ManagerError.badRequest("Failed to create category");
 
             return category;
         } catch (error) {
@@ -39,7 +40,7 @@ export class CategoriesService {
     async update(id: string, updateCategoryDto: UpdateCategoryDto) {
         try {
             const category = await Category.findOneAndUpdate({ _id: id }, updateCategoryDto, { new: true });
-            if (!category) throw new Error("category not found");
+            if (!category) throw ManagerError.notFound("Category not found");
 
             return category;
         } catch (error) {
@@ -50,7 +51,7 @@ export class CategoriesService {
     async delete(id: string) {
         try {
             const category = await Category.findOneAndDelete({ _id: id }); //! Nunca aplicar eliminación física en un categoryo, lo ideal es marcarlo como inactivo o eliminado
-            if (!category) throw new Error("Category not found");
+            if (!category) throw ManagerError.notFound("Category not found");
 
             return category;
         } catch (error) {
@@ -61,7 +62,7 @@ export class CategoriesService {
     async findOne(id: string) {
         try {
             const category = await Category.findOne({ _id: id });
-            if (!category) throw new Error("Category not found");
+            if (!category) throw ManagerError.notFound("Category not found");
 
             return category;
         } catch (error) {
